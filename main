@@ -24,5 +24,34 @@ while True:
    "s" for å starte neste runde
    "l" for å fjerne eller legge til spillere
 
-    .. med muligheter for flere valg etterhvert
+
+NB!
+LES! 
+FUNKSJONALITET!:
+
+   OM MAN VELGER Å STARTE NESTE RUNDE:
+   1. På rundgang på spillerne først velge hvor mye de selv vil vedde
+        Denne summen fjernes da umiddelbart fra pengene deres
+
+   2. Spiller 1 får 2 kort. finnSum() blir kjørt, så spilleren kan se hvor mye de totalt har.
+        Trygve fikser sånn at det ser fint ut med at de kan se kortene sine fint osv..
+
+        3. Spiller 1 velger mellom hit() og stand()
+
+           - om stand() så går vi jo bare videre i programmet. Kanskje ikke engang en metode er trengt?
+           - om hit() får spilleren enda et kort, den nye summen, og så lenge spilleren har under 21 i sum får han valget igjen og igjen..
+
+    4. Deretter kjører vi sånn igjennom hver spiller.
+
+    5. Når alle spillerene har spilt vil Dealer spille
+
+        - Han hitter hver gang så lenge han enten har under 17 i sum / slår den høyeste summen til spillerne (!), eller når 21
+
+    6. Deretter sjekker spillet om spillerne har vunnet
+       
+        - De som har det får dobla veddingen sin og det legges inn i pengesummen igjen
+        - Ellers mister man pengene for godt
+
+
+    - SLUTT - (vi får velge på nytt om å starte ny runde eller endre spillere eller hva som helst..)
 """
