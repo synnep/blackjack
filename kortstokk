@@ -21,6 +21,30 @@ class Kort:
 
     def visInfo(self):
         print(self.farge, self.tall)
+         farge = ["Kløver","Spar","Hjerter","Ruter"]
+        fargeS = ["♣","♠","♥","♦"]
+        far = ""
+        space = " "
+        tal = self.tall
+        if(self.tall == 10):
+            space = ""
+        if(self.tall == 11):
+            tal = "J"
+        if(self.tall == 12):
+            tal = "Q"
+        if(self.tall == 13):
+            tal = "K"
+        if(self.tall == 1):
+            tal = "A"
+        for r in range(len(farge)):
+            if(farge[r] == self.farge):
+                far = fargeS[r]
+        print(f"+------+")
+        print(f"| {tal}{space} {far} |")
+        print(f"|      |")
+        print(f"|      |")
+        print(f"| {far}  {tal}{space}|")
+        print(f"+------+")
 
 class Kortstokk:
     
