@@ -1,7 +1,6 @@
+# -*- coding: utf-8 -*-
+from kortstokk import Kort
 from kortstokk import Kortstokk
-
-kortstokk = Kortstokk()
-kortstokk.visKortstokkInfo()
 
 class Hand():
     """
@@ -27,19 +26,19 @@ class Hand():
         """
         viser kortene hånden sitter på
         """
-        for kort in self.kortPaHand:
-            kort.visKortInfo()
+        for k in self.kortPaHand:
+            k.visKortInfo()
     
-    def finnSumm(self):
+    def finnSum(self):
         """
         finner summen til kortene hånden besitter
         tar hensyn til at ess kan ha flere verdier
-        !! returnerer ingen verdi enn så lenge, kun print
+        !! returnerer ingen verdi, kun print
         """
         ess = "nei"
 
         for kort in self.kortPaHand:
-                if kort.tall == 13:
+                if kort.tall == 14:
                     ess = "ja"
         
         if ess == "ja":
@@ -51,7 +50,7 @@ class Hand():
                 print(s1)
          
             for kort in self.kortPaHand:
-                if kort.tall == 13:
+                if kort.tall == 14:
                     s2 += 1
                 else:
                     s2 += kort.tall
@@ -64,3 +63,14 @@ class Hand():
             for kort in self.kortPaHand:
                 s += kort.tall
             print(s)
+
+
+# test for å se om koden fungerer
+
+kortstokk = Kortstokk()
+#kortstokk.visKortstokkInfo()
+
+h1 = Hand()
+
+h1.visHand()
+h1.finnSum()
