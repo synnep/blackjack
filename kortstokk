@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Oct 13 15:06:42 2022
-
-@author: trygveen
-"""
 import random
 
 class Kort:
@@ -19,13 +13,21 @@ class Kort:
         self.farge = farge
         self.tall = tall
 
-    def visInfo(self):
-        print(self.farge, self.tall)
-         farge = ["Kløver","Spar","Hjerter","Ruter"]
+    def visKortInfo(self):
+        """
+        Viser farge og verdien til et kort
+        """
+
+        #print(self.farge, self.tall)
+
+        farge = ["Kløver","Spar","Hjerter","Ruter"]
         fargeS = ["♣","♠","♥","♦"]
+
         far = ""
         space = " "
+
         tal = self.tall
+
         if(self.tall == 10):
             space = ""
         if(self.tall == 11):
@@ -36,9 +38,11 @@ class Kort:
             tal = "K"
         if(self.tall == 1):
             tal = "A"
+        
         for r in range(len(farge)):
             if(farge[r] == self.farge):
                 far = fargeS[r]
+        
         print(f"+------+")
         print(f"| {tal}{space} {far} |")
         print(f"|      |")
@@ -47,32 +51,47 @@ class Kort:
         print(f"+------+")
 
 class Kortstokk:
+    """
+    Klasse for å generere en kortstokk
+    """
     
     def  __init__(self):
        self.kortstokk = []
        self.bygg()
     
     def bygg(self):
+        """
+        bygger en kortstokk med 52 kort
+        stokker automatisk
+        """
         
         farge = ["Kløver","Spar","Hjerter","Ruter"]
+
         for y in range(len(farge)):
             for c in range(1,14):
                 self.kortstokk.append(Kort(farge[y],c))
-                print(farge[y],c)
+                #print(farge[y],c)
         self.stokk()
+
     def stokk(self):
+        """
+        stokker kortstokken
+        """
         random.shuffle(self.kortstokk)
         
     def trekk(self):
-        self.kortstokk[0].visInfo()
+        """
+        returnerer det første kortet i kortstokken
+        og fjerner dette kortet fra kortstokken
+        """
+        kort0 = self.kortstokk[0]
+        self.kortstokk.pop(0)
+        return kort0
         
-    def visInfo(self):
-        print(self.kortstokk)
+    def visKortstokkInfo(self):
+        """
+        printer hele kortstokken
+        """
+        #print(self.kortstokk)
         for i in self.kortstokk:
-            i.visInfo()
-    
-
-
-bunke1 = Kortstokk()
-bunke1.visInfo()
-        
+            i.visKortInfo()
