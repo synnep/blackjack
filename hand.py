@@ -147,7 +147,57 @@ class Hand():
         og fjerner kortet fra kortstokken
         """
         self.kortPaHand.append(kortstokk.trekk())
+class Dealer(Hand):
+    
+    def __init__(self):
+        super().__init__()
+    
+    def visHandDealer(self):
+        liste = self.kortPaHand
+        tb = "+------+ "
+        mid = "|      | "
+        
+        tbf = tb
+        midf = "|??????| "
+        con1 = "|??????| "
+        con2 = "|??????| "
+        farge = ["Kløver","Spar","Hjerter","Ruter"]
+        fargeS = ["♣","♠","♥","♦"]
 
+        far = ""
+        space = " "
+
+        
+        for i in range(len(liste)-1):
+            tal = liste[i+1].tall
+
+            if(liste[i+1].tall == 10):
+                space = ""
+            else:
+                space = " "
+            if(liste[i+1].tall == 11):
+                tal = "J"
+            if(liste[i+1].tall == 12):
+                tal = "Q"
+            if(liste[i+1].tall == 13):
+                tal = "K"
+            if(liste[i+1].tall == 1):
+                tal = "A"
+        
+            for r in range(len(farge)):
+                if(farge[r] == liste[i+1].farge):
+                    far = fargeS[r]
+            tbf += tb
+            midf += mid
+            con1 += f"| {tal}{space} {far} | "
+            con2 += f"| {far}  {tal}{space}| "
+        print(tbf)
+        print(con1)
+        print(midf)
+        print(midf)
+        print(con2)
+        print(tbf)
+  
 
 # test for å se om koden fungerer
 
