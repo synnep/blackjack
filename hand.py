@@ -28,7 +28,50 @@ class Hand():
         """
         for k in self.kortPaHand:
             k.visKortInfo()
-    
+    def visHand2(self, liste):
+        tb = "+------+ "
+        mid = "|      | "
+        
+        tbf = ""
+        midf = ""
+        con1 = ""
+        con2 = ""
+        farge = ["Kløver","Spar","Hjerter","Ruter"]
+        fargeS = ["♣","♠","♥","♦"]
+
+        far = ""
+        space = " "
+
+        
+        for i in range(len(liste)):
+            tal = liste[i].tall
+
+            if(liste[i].tall == 10):
+                space = ""
+            else:
+                space = " "
+            if(liste[i].tall == 11):
+                tal = "J"
+            if(liste[i].tall == 12):
+                tal = "Q"
+            if(liste[i].tall == 13):
+                tal = "K"
+            if(liste[i].tall == 1):
+                tal = "A"
+        
+            for r in range(len(farge)):
+                if(farge[r] == liste[i].farge):
+                    far = fargeS[r]
+            tbf += tb
+            midf += mid
+            con1 += f"| {tal}{space} {far} | "
+            con2 += f"| {far}  {tal}{space}| "
+        print(tbf)
+        print(con1)
+        print(midf)
+        print(midf)
+        print(con2)
+        print(tbf)
     def finnSum(self):
         """
         finner summen til kortene hånden besitter
