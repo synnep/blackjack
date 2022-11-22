@@ -148,7 +148,9 @@ class Hand():
         """
         self.kortPaHand.append(kortstokk.trekk())
 class Dealer(Hand):
-    
+    """
+    Klasse for dealeren sin hånd
+    """
     def __init__(self):
         super().__init__()
     
