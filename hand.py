@@ -63,6 +63,13 @@ class Hand():
             for kort in self.kortPaHand:
                 s += kort.tall
             print(s)
+            
+  def leggTilKort(self):
+        """
+        legger til det første kortet i bunken til hånden
+        og fjerner kortet fra kortstokken
+        """
+        self.kortPaHand.append(kortstokk.trekk())
 
 
 # test for å se om koden fungerer
