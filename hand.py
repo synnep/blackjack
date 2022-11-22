@@ -82,34 +82,43 @@ class Hand():
         tar hensyn til at ess kan ha flere verdier
         !! returnerer ingen verdi, kun print
         """
-        ess = "nei"
+                """
+        finner summen til kortene hånden besitter
+        tar hensyn til at ess kan ha flere verdier
+        !! returnerer ingen verdi, kun print
+        """
+        ess = 0
+        summer = []
 
         for kort in self.kortPaHand:
-                if kort.tall == 14:
-                    ess = "ja"
+            if kort.tall == 1:
+                ess += 1
+                #print("ess - ja")
         
-        if ess == "ja":
-            s1 = 0
-            s2 = 0
-           
-            for kort in self.kortPaHand:
-                s1 += kort.tall
-                print(s1)
-         
-            for kort in self.kortPaHand:
-                if kort.tall == 14:
-                    s2 += 1
-                else:
-                    s2 += kort.tall
-                
-            print("Sum med 13: ", s1)
-            print("Sum med 1: ", s2)
-
-        else: 
+        if ess == 0:
+            #print("ess - nei")
             s = 0
             for kort in self.kortPaHand:
-                s += kort.tall
-            print(s)
+                if kort.tall > 10:
+                    s += 10
+                else: 
+                    s += kort.tall
+                #print("legger til")
+            summer.append(s)
+        else: 
+            for j in range(ess):
+                #print(f"ess - ja, {j}")
+                s = 0
+                for kort in self.kortPaHand:
+                    #print("skal legge til")
+                    if kort.tall > 10:
+                        s += 10
+                    elif kort.tall > 1 and kort.tall < 10:
+                        s += kort.tall
+                    elif kort.tall == 1:
+                        !!!
+                        s += 11
+                summer.append(s)
             
   def leggTilKort(self):
         """
