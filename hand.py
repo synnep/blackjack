@@ -82,25 +82,36 @@ class Hand():
         tar hensyn til at ess kan ha flere verdier
         returnerer liste med verdier
         """
+        """
+        finner summen til kortene hånden besitter
+        tar hensyn til at ess kan ha flere verdier
+        returnerer liste med verdier
+        """
         ess = 0
-        summer = []
+        summer = []    # liste for summene vi skal returnere
 
+        # sjekker hvor mange ess det er på hånda
         for kort in self.kortPaHand:
             if kort.tall == 1:
                 ess += 1
                 #print("ess - ja")
         
+        # hvis ingen ess, regner ut summen
         if ess == 0:
             #print("ess - nei")
             s = 0
             for kort in self.kortPaHand:
-                if kort.tall > 10:
+                if kort.tall > 10:    # bildekort får verdien 10
                     s += 10
                 else: 
                     s += kort.tall
                 #print("legger til")
             summer.append(s)
+
+        # hvis ess
         else:
+            # legger til summen av alle kortene unntatt essene
+            # for så mange muligheter av summer vi kan ha med antall ess
             for j in range(ess+1):
                 #print(f"ess - ja, {j}")
                 s = 0
@@ -113,9 +124,12 @@ class Hand():
                         
                 summer.append(s)
 
+            # regner ut alle mulige verdier for essene
+            # og legger disse til på summen
             for k in range(len(summer)):
                 summer[k] += (k*11)+((len(summer)-1-k)*1)
 
+        # sorterer listen til synkende verdi
         summer.sort()
         summer.reverse()
 
@@ -124,7 +138,7 @@ class Hand():
             if s > 21:
                 summer.remove(s)
         """
-        
+        # returnerer liste med summer
         return summer
             
   def leggTilKort(self):
