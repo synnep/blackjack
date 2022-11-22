@@ -29,6 +29,9 @@ class Hand():
         for k in self.kortPaHand:
             k.visKortInfo()
     def visHand2(self):
+        """
+        Viser hånden til spilleren horisontalt
+        """
         liste = self.kortPaHand
         tb = "+------+ "
         mid = "|      | "
