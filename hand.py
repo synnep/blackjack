@@ -80,12 +80,7 @@ class Hand():
         """
         finner summen til kortene hånden besitter
         tar hensyn til at ess kan ha flere verdier
-        !! returnerer ingen verdi, kun print
-        """
-                """
-        finner summen til kortene hånden besitter
-        tar hensyn til at ess kan ha flere verdier
-        !! returnerer ingen verdi, kun print
+        returnerer liste med verdier
         """
         ess = 0
         summer = []
@@ -105,20 +100,32 @@ class Hand():
                     s += kort.tall
                 #print("legger til")
             summer.append(s)
-        else: 
-            for j in range(ess):
+        else:
+            for j in range(ess+1):
                 #print(f"ess - ja, {j}")
                 s = 0
                 for kort in self.kortPaHand:
                     #print("skal legge til")
                     if kort.tall > 10:
                         s += 10
-                    elif kort.tall > 1 and kort.tall < 10:
+                    elif kort.tall > 1 and kort.tall <= 10:
                         s += kort.tall
-                    elif kort.tall == 1:
-                        !!!
-                        s += 11
+                        
                 summer.append(s)
+
+            for k in range(len(summer)):
+                summer[k] += (k*11)+((len(summer)-1-k)*1)
+
+        summer.sort()
+        summer.reverse()
+
+        """
+        for s in summer:
+            if s > 21:
+                summer.remove(s)
+        """
+        
+        return summer
             
   def leggTilKort(self):
         """
