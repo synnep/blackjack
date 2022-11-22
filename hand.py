@@ -28,7 +28,8 @@ class Hand():
         """
         for k in self.kortPaHand:
             k.visKortInfo()
-    def visHand2(self, liste):
+    def visHand2(self):
+        liste = self.kortPaHand
         tb = "+------+ "
         mid = "|      | "
         
