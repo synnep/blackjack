@@ -31,8 +31,8 @@ class Spiller(Hand):
     def visHand2(self):
         super().visHand2()
 
-    def finnSumm(self):
-        super().finnSumm()
+    def finnSum(self):
+        super().finnSum()
 
     def leggTilKort(self):
         super().leggTilKort()
@@ -90,6 +90,7 @@ while True:
 
         # Deretter gir vi hver spiller en hånd å spille med
         for i in range(len(spillere)):
+            spillere[i].kortPaHand = []
             spillere[i].genererHand()
             # Legg til greier fra Synne og Trygve sine nye koder (så de kan se kortene de får osv..)
 
@@ -105,15 +106,19 @@ while True:
             # Lar spiller i ta en omgang (hit / stand / bust)
             while True:
                 # Se kort, se sum
+                print(f"Spiller {i+1}: {spillere[i].navn}")
                 spillere[i].visHand2()
+                #print(f"Sum: {spillere[i].finnSum()[i]}p")
 
                 valg = input("HIT eller STAND? ").upper()
                 if valg == "HIT":
-                    # Synne har skrevet kode for å gi nytt kort
                     spillere[i].leggTilKort()
 
+                    print(spillere[i].kortPaHand)
+                    sum = spillere[i].finnSum()
+                    print(sum)
                     # Sjekker om bust
-                    if int(spillere[i].finnSum) > 21:
+                    if sum > 21:
                         print("Bust..")
                         # Lagre resultatet som 0
                         break
@@ -122,8 +127,15 @@ while True:
                     # Lagre resultatet til hver person
                     break
 
+    elif action == "l":
+        print("hei")
+
+
+"""
 NB!
-LES! 
+
+LES!
+
 FUNKSJONALITET!:
 
    OM MAN VELGER Å STARTE NESTE RUNDE:
