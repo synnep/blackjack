@@ -6,13 +6,13 @@ import time
 # Definerer en global variabel
 spillere = []
 
-
+"""
 class Spiller(Hand):
-    """
-    Klasse som skal lage spiller-objekter.
+    
+Klasse som skal lage spiller-objekter.
 
-    Arver fra hand-objektet
-    """
+Arver fra hand-objektet
+
 
     def __init__(self, navn):
         super().__init__()
@@ -37,7 +37,7 @@ class Spiller(Hand):
 
     def leggTilKort(self):
         super().leggTilKort()
-
+"""
 
 # Definerer noen funksjoner for brukervennlighet og funksjonalitet
 
@@ -51,7 +51,7 @@ def leggTilSpillere():
         navn = input(f"Navnet til spiller {i+1}: ")
 
         # Lagrer hvert navn som et eget Hand-objekt
-        spillere.append(Spiller(navn))
+        spillere.append(Hand(navn))
 
 
 def giHånd():
@@ -123,14 +123,14 @@ while True:
                 print(f"Spiller {i+1}: {spillere[i].navn}")
                 spillere[i].visHand2()
                 print(spillere[i])
-                sum = spillere[i].finnSum()[i]
+                sum = spillere[i].finnSum()
                 # print(spillere.finnSum()[i])
 
-                if sum == 21:
+                if sum[0] == 21:
                     print("21!")
                     break
 
-                if sum > 21:
+                if sum[0] > 21:
                     print("Bust..")
                     break
 
