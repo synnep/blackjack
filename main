@@ -122,30 +122,30 @@ while True:
                 # Se kort, se sum
                 print(f"Spiller {i+1}: {spillere[i].navn}")
                 spillere[i].visHand2()
-                print(spillere[i])
-                sum = spillere[i].finnSum()
-                # print(spillere.finnSum()[i])
 
-                if sum[0] == 21:
-                    print("21!")
+                sum = spillere[i].finnSum()
+                print(f"SUM: {sum}")
+
+                etl = 0
+
+                for g in range(len(sum)):
+                    if sum[g] > 21:
+                        sum.pop(g)
+                        etl += 1
+
+                if sum == []:
+                    print("Bust..")
                     break
 
-                if sum[0] > 21:
-                    print("Bust..")
+                if sum[0+etl] == 21:
+                    print("21!")
                     break
 
                 valg = input("HIT eller STAND? ").upper()
                 if valg == "HIT":
-                    spillere[i].leggTilKort()
 
-                    print(spillere[i].kortPaHand)
-                    #sum = spillere[i].finnSum()
-                    # print(sum)
-                    # Sjekker om bust
-                    # if sum > 21:
-                    #    print("Bust..")|
-                    #    # Lagre resultatet som 0
-                    #    break
+                    spillere[i].leggTilKort()
+                    # print(spillere[i].kortPaHand)
 
                 elif valg == "STAND":
                     # Lagre resultatet til hver person
