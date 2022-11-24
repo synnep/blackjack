@@ -1,6 +1,7 @@
 # Importerer klasser fra andre lokale filer:
 from hånd_spiller_dealer import *
 from kort_og_kortstokk import *
+import time
 
 # Definerer en global variabel
 spillere = []
@@ -14,8 +15,8 @@ class Spiller(Hand):
     """
 
     def __init__(self, navn):
+        super().__init__()
         self.navn = navn
-        self.kortPaHand = []
         self.pengesum = 2000
         self.bet = 0
 
@@ -60,22 +61,22 @@ def giHånd():
 
 leggTilSpillere()
 
-# sjekker antall spillere (midlertidig)
-for i in range(len(spillere)):
-    print(i)
-
+sum = []
 while True:
     # Valg av hva du vil gjøre
+    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+    print("- - - - - - - - - - - - - - - - - - -")
     print("Skriv inn 's' for å starte spillet.")
     print("Skriv inn 'l' for å fjerne eller legge til spillere.")
+    print("- - - - - - - - - - - - - - - - - - -")
 
-    action = input("Skriv inn hvilke handling du vil gjøre")
+    action = input("\nSkriv inn hvilke handling du vil gjøre: ")
 
     if action == "s":
 
         # Først lar vi spillerne velge hvor mye de vil vedde
         for i in range(len(spillere)):
-            print(f"SPILLER: {spillere[i].navn}")
+            print(f"\n\nSPILLER: {spillere[i].navn}")
             while True:
                 bet = int(input(f"Vennligst velg hvor mye du vil satse: "))
                 if bet <= 0:
@@ -91,37 +92,60 @@ while True:
         # Deretter gir vi hver spiller en hånd å spille med
         for i in range(len(spillere)):
             spillere[i].kortPaHand = []
-            spillere[i].genererHand()
+            print(spillere[i].genererHand())
             # Legg til greier fra Synne og Trygve sine nye koder (så de kan se kortene de får osv..)
 
         for i in range(len(spillere)):
+            print("\n\n\n")
+            print("- - - - - - - - - - - - - - - - - - - - -")
+            print("\t\tBLACKJACK")
+            print("- - - - - - - - - - - - - - - - - - - - -")
             for r in range(len(spillere)):
                 # Printen oversikt over alle sine kort
-                print("\t -- BLACKJACK -- \t")
+                print(f"\nSpiller {r+1}({spillere[r].navn}):")
+                spillere[r].visHand2()
+                print(" ")
 
-                print(f"Spiller {i+1}({spillere[i].navn}): \n")
-                spillere[i].visHand2()
-                print("\n\n\n")
+            # Space:
+            print("\n\n")
+
+            time.sleep(3)
+
+            print("- - - - - - - - -")
+            print("Oversikt       ⮝")
+            print("Spillrunde     ⮟")
+            print("- - - - - - - - -")
+            print("\n\n")
 
             # Lar spiller i ta en omgang (hit / stand / bust)
             while True:
                 # Se kort, se sum
                 print(f"Spiller {i+1}: {spillere[i].navn}")
                 spillere[i].visHand2()
-                #print(f"Sum: {spillere[i].finnSum()[i]}p")
+                print(spillere[i])
+                sum = spillere[i].finnSum()[i]
+                # print(spillere.finnSum()[i])
+
+                if sum == 21:
+                    print("21!")
+                    break
+
+                if sum > 21:
+                    print("Bust..")
+                    break
 
                 valg = input("HIT eller STAND? ").upper()
                 if valg == "HIT":
                     spillere[i].leggTilKort()
 
                     print(spillere[i].kortPaHand)
-                    sum = spillere[i].finnSum()
-                    print(sum)
+                    #sum = spillere[i].finnSum()
+                    # print(sum)
                     # Sjekker om bust
-                    if sum > 21:
-                        print("Bust..")
-                        # Lagre resultatet som 0
-                        break
+                    # if sum > 21:
+                    #    print("Bust..")|
+                    #    # Lagre resultatet som 0
+                    #    break
 
                 elif valg == "STAND":
                     # Lagre resultatet til hver person
