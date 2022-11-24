@@ -1,33 +1,50 @@
-# -*- coding: utf-8 -*-
-from kortstokk import Kort
-from kortstokk import Kortstokk
+# Ikke fullstendig!!
+
+from kort_og_kortstokk import *
+
+kortstokk = Kortstokk()
+
 
 class Hand():
     """
     Klasse for å representere en hånd med kort
-
     Bruker en ferdig stokket kortstokk for å fylle hånden med kort
-        
+
     """
-    
-    def __init__(self):
+
+    def __init__(self, navn):
         self.kortPaHand = []
+        self.navn = navn
+        self.pengesum = 2000
+        self.bet = 0
         self.genererHand()
-    
+
     def genererHand(self):
         """
         genererer en hånd med to kort
             de to øverste kortene fra en ferdig stokket kortstokk
         """
         for i in range(2):
-            self.kortPaHand.append(kortstokk.trekk())
-    
-    def visHand(self):
+            self.kortPaHand.append(kortstokk.kortstokk[0])
+            kortstokk.kortstokk.pop(0)
+
+    # def visHand(self):
         """
         viser kortene hånden sitter på
         """
-        for k in self.kortPaHand:
-            k.visKortInfo()
+    #    for k in self.kortPaHand:
+    #        k.visKortInfo()
+    #      print(f"Navn: {self.navn}")
+    #   print(f"Pengesum: {self.pengesum}kr")
+    #    print(f"Satt veddesum: {self.bet}kr")
+
+    def leggTilKort(self):
+        """
+        legger til det første kortet i bunken til hånden
+        og fjerner kortet fra kortstokken
+        """
+        self.kortPaHand.append(kortstokk.trekk())
+
     def visHand2(self):
         """
         Viser hånden til spilleren horisontalt
@@ -35,18 +52,17 @@ class Hand():
         liste = self.kortPaHand
         tb = "+------+ "
         mid = "|      | "
-        
+
         tbf = ""
         midf = ""
         con1 = ""
         con2 = ""
-        farge = ["Kløver","Spar","Hjerter","Ruter"]
-        fargeS = ["♣","♠","♥","♦"]
+        farge = ["Kløver", "Spar", "Hjerter", "Ruter"]
+        fargeS = ["♣", "♠", "♥", "♦"]
 
         far = ""
         space = " "
 
-        
         for i in range(len(liste)):
             tal = liste[i].tall
 
@@ -62,7 +78,7 @@ class Hand():
                 tal = "K"
             if(liste[i].tall == 1):
                 tal = "A"
-        
+
             for r in range(len(farge)):
                 if(farge[r] == liste[i].farge):
                     far = fargeS[r]
@@ -76,6 +92,7 @@ class Hand():
         print(midf)
         print(con2)
         print(tbf)
+
     def finnSum(self):
         """
         finner summen til kortene hånden besitter
@@ -95,15 +112,15 @@ class Hand():
             if kort.tall == 1:
                 ess += 1
                 #print("ess - ja")
-        
+
         # hvis ingen ess, regner ut summen
         if ess == 0:
             #print("ess - nei")
             s = 0
             for kort in self.kortPaHand:
-                if kort.tall > 10:    # bildekort får verdien 10
+                if int(kort.tall) > 10:    # bildekort får verdien 10
                     s += 10
-                else: 
+                else:
                     s += kort.tall
                 #print("legger til")
             summer.append(s)
@@ -121,7 +138,7 @@ class Hand():
                         s += 10
                     elif kort.tall > 1 and kort.tall <= 10:
                         s += kort.tall
-                        
+
                 summer.append(s)
 
             # regner ut alle mulige verdier for essene
@@ -140,36 +157,31 @@ class Hand():
         """
         # returnerer liste med summer
         return summer
-            
-  def leggTilKort(self):
-        """
-        legger til det første kortet i bunken til hånden
-        og fjerner kortet fra kortstokken
-        """
-        self.kortPaHand.append(kortstokk.trekk())
+
+
 class Dealer(Hand):
     """
     Klasse for dealeren sin hånd
     """
+
     def __init__(self):
         super().__init__()
-    
+
     def visHandDealer(self):
         liste = self.kortPaHand
         tb = "+------+ "
         mid = "|      | "
-        
+
         tbf = tb
         midf = "|??????| "
         con1 = "|??????| "
         con2 = "|??????| "
-        farge = ["Kløver","Spar","Hjerter","Ruter"]
-        fargeS = ["♣","♠","♥","♦"]
+        farge = ["Kløver", "Spar", "Hjerter", "Ruter"]
+        fargeS = ["♣", "♠", "♥", "♦"]
 
         far = ""
         space = " "
 
-        
         for i in range(len(liste)-1):
             tal = liste[i+1].tall
 
@@ -185,7 +197,7 @@ class Dealer(Hand):
                 tal = "K"
             if(liste[i+1].tall == 1):
                 tal = "A"
-        
+
             for r in range(len(farge)):
                 if(farge[r] == liste[i+1].farge):
                     far = fargeS[r]
@@ -199,14 +211,3 @@ class Dealer(Hand):
         print(midf)
         print(con2)
         print(tbf)
-  
-
-# test for å se om koden fungerer
-
-kortstokk = Kortstokk()
-#kortstokk.visKortstokkInfo()
-
-h1 = Hand()
-
-h1.visHand()
-h1.finnSum()
