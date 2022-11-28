@@ -53,7 +53,6 @@ def leggTilSpillere():
         # Lagrer hvert navn som et eget Hand-objekt
         spillere.append(Hand(navn))
 
-
 def giHånd():
     for i in range(len(spillere)):
         spillere[i].genererHand()
@@ -62,6 +61,7 @@ def giHånd():
 leggTilSpillere()
 
 sum = []
+dealer = Dealer()
 while True:
     # Valg av hva du vil gjøre
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
@@ -73,7 +73,6 @@ while True:
     action = input("\nSkriv inn hvilke handling du vil gjøre: ")
 
     if action == "s":
-
         # Først lar vi spillerne velge hvor mye de vil vedde
         for i in range(len(spillere)):
             print(f"\n\nSPILLER: {spillere[i].navn}")
@@ -100,6 +99,9 @@ while True:
             print("- - - - - - - - - - - - - - - - - - - - -")
             print("\t\tBLACKJACK")
             print("- - - - - - - - - - - - - - - - - - - - -")
+            print("Dealer:")
+            dealer.visHandDealer()
+            print("\n")
             for r in range(len(spillere)):
                 # Printen oversikt over alle sine kort
                 print(f"\nSpiller {r+1}({spillere[r].navn}):")
@@ -124,22 +126,24 @@ while True:
                 spillere[i].visHand2()
 
                 sum = spillere[i].finnSum()
-                print(f"SUM: {sum}")
+                
 
                 etl = 0
 
                 for g in range(len(sum)):
-                    if sum[g] > 21:
-                        sum.pop(g)
-                        etl += 1
+                    if sum[g-etl] > 21:
+                        sum.pop(g-etl)
+                        etl+=1
 
                 if sum == []:
                     print("Bust..")
                     break
-
-                if sum[0+etl] == 21:
+                print(f"SUM: {sum}")
+                if sum[0] == 21:
                     print("21!")
                     break
+                if sum[0] > 21:
+                    sum.pop(0)
 
                 valg = input("HIT eller STAND? ").upper()
                 if valg == "HIT":
@@ -153,7 +157,38 @@ while True:
 
     elif action == "l":
         print("hei")
-
+    
+    while True:
+        testVar = False
+        
+        print("Dealer:")
+        dealer.visHand2()
+        print(dealer.finnSum())
+        print("\n")
+        
+        for r in range(len(spillere)):
+            # Printen oversikt over alle sine kort
+            print(f"\nSpiller {r+1}({spillere[r].navn}):")
+            tallListe = spillere[r].finnSum()
+            if(tallListe[0]>21):
+                print("Bust")
+            else:
+                print(tallListe[0])
+        print(" ")
+        for h in range(len(spillere)):
+            if (dealer.finnSum()[0] <= spillere[h].finnSum()[0] and spillere[h].finnSum()[0] < 22):
+                testVar = True
+        if(testVar == True):
+            dealer.leggTilKort()
+        else:
+            break
+        print("\n\n\n")
+        print("You Loose")
+        print("\n\n\n")
+        
+        time.sleep(5)
+        
+    
 
 """
 NB!
