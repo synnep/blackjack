@@ -1,212 +1,98 @@
-# -*- coding: utf-8 -*-
-from kortstokk import Kort
-from kortstokk import Kortstokk
+import random
 
-class Hand():
+class Kort:
+      
     """
-    Klasse for å representere en hånd med kort
+    Klasse for å generere kort
+    
+    parametre:
+        farge(str): fargen på kortet (eks: kløver, hjerter, spar, ruter)
+        tall(int): tall på kortet
+    """
+    def __init__(self, farge, tall):
+        self.farge = farge
+        self.tall = tall
 
-    Bruker en ferdig stokket kortstokk for å fylle hånden med kort
-        
-    """
-    
-    def __init__(self):
-        self.kortPaHand = []
-        self.genererHand()
-    
-    def genererHand(self):
+    def visKortInfo(self):
         """
-        genererer en hånd med to kort
-            de to øverste kortene fra en ferdig stokket kortstokk
+        Viser farge og verdien til et kort
         """
-        for i in range(2):
-            self.kortPaHand.append(kortstokk.trekk())
-    
-    def visHand(self):
-        """
-        viser kortene hånden sitter på
-        """
-        for k in self.kortPaHand:
-            k.visKortInfo()
-    def visHand2(self):
-        """
-        Viser hånden til spilleren horisontalt
-        """
-        liste = self.kortPaHand
-        tb = "+------+ "
-        mid = "|      | "
-        
-        tbf = ""
-        midf = ""
-        con1 = ""
-        con2 = ""
+
+        #print(self.farge, self.tall)
+
         farge = ["Kløver","Spar","Hjerter","Ruter"]
         fargeS = ["♣","♠","♥","♦"]
 
         far = ""
         space = " "
 
+        tal = self.tall
+
+        if(self.tall == 10):
+            space = ""
+        if(self.tall == 11):
+            tal = "J"
+        if(self.tall == 12):
+            tal = "Q"
+        if(self.tall == 13):
+            tal = "K"
+        if(self.tall == 1):
+            tal = "A"
         
-        for i in range(len(liste)):
-            tal = liste[i].tall
-
-            if(liste[i].tall == 10):
-                space = ""
-            else:
-                space = " "
-            if(liste[i].tall == 11):
-                tal = "J"
-            if(liste[i].tall == 12):
-                tal = "Q"
-            if(liste[i].tall == 13):
-                tal = "K"
-            if(liste[i].tall == 1):
-                tal = "A"
+        for r in range(len(farge)):
+            if(farge[r] == self.farge):
+                far = fargeS[r]
         
-            for r in range(len(farge)):
-                if(farge[r] == liste[i].farge):
-                    far = fargeS[r]
-            tbf += tb
-            midf += mid
-            con1 += f"| {tal}{space} {far} | "
-            con2 += f"| {far}  {tal}{space}| "
-        print(tbf)
-        print(con1)
-        print(midf)
-        print(midf)
-        print(con2)
-        print(tbf)
-    def finnSum(self):
-        """
-        finner summen til kortene hånden besitter
-        tar hensyn til at ess kan ha flere verdier
-        returnerer liste med verdier
-        """
-        """
-        finner summen til kortene hånden besitter
-        tar hensyn til at ess kan ha flere verdier
-        returnerer liste med verdier
-        """
-        ess = 0
-        summer = []    # liste for summene vi skal returnere
+        print(f"+------+")
+        print(f"| {tal}{space} {far} |")
+        print(f"|      |")
+        print(f"|      |")
+        print(f"| {far}  {tal}{space}|")
+        print(f"+------+")
 
-        # sjekker hvor mange ess det er på hånda
-        for kort in self.kortPaHand:
-            if kort.tall == 1:
-                ess += 1
-                #print("ess - ja")
+class Kortstokk:
+    """
+    Klasse for å generere en kortstokk
+    """
+    
+    def  __init__(self):
+       self.kortstokk = []
+       self.bygg()
+    
+    def bygg(self):
+        """
+        bygger en kortstokk med 52 kort
+        stokker automatisk
+        """
         
-        # hvis ingen ess, regner ut summen
-        if ess == 0:
-            #print("ess - nei")
-            s = 0
-            for kort in self.kortPaHand:
-                if kort.tall > 10:    # bildekort får verdien 10
-                    s += 10
-                else: 
-                    s += kort.tall
-                #print("legger til")
-            summer.append(s)
+        farge = ["Kløver","Spar","Hjerter","Ruter"]
 
-        # hvis ess
-        else:
-            # legger til summen av alle kortene unntatt essene
-            # for så mange muligheter av summer vi kan ha med antall ess
-            for j in range(ess+1):
-                #print(f"ess - ja, {j}")
-                s = 0
-                for kort in self.kortPaHand:
-                    #print("skal legge til")
-                    if kort.tall > 10:
-                        s += 10
-                    elif kort.tall > 1 and kort.tall <= 10:
-                        s += kort.tall
-                        
-                summer.append(s)
+        for y in range(len(farge)):
+            for c in range(1,14):
+                self.kortstokk.append(Kort(farge[y],c))
+                #print(farge[y],c)
+        self.stokk()
 
-            # regner ut alle mulige verdier for essene
-            # og legger disse til på summen
-            for k in range(len(summer)):
-                summer[k] += (k*11)+((len(summer)-1-k)*1)
-
-        # sorterer listen til synkende verdi
-        summer.sort()
-        summer.reverse()
-
+    def stokk(self):
         """
-        for s in summer:
-            if s > 21:
-                summer.remove(s)
+        stokker kortstokken
         """
-        # returnerer liste med summer
-        return summer
+        random.shuffle(self.kortstokk)
+        
+    def trekk(self):
+        """
+        returnerer det første kortet i kortstokken
+        og fjerner dette kortet fra kortstokken
+        """
+        kort0 = self.kortstokk[0]
+        self.kortstokk.pop(0)
+        return kort0
+        
+    def visKortstokkInfo(self):
+        """
+        printer hele kortstokken
+        """
+        #print(self.kortstokk)
+        for i in self.kortstokk:
+            i.visKortInfo()
             
-  def leggTilKort(self):
-        """
-        legger til det første kortet i bunken til hånden
-        og fjerner kortet fra kortstokken
-        """
-        self.kortPaHand.append(kortstokk.trekk())
-class Dealer(Hand):
-    """
-    Klasse for dealeren sin hånd
-    """
-    def __init__(self):
-        super().__init__()
-    
-    def visHandDealer(self):
-        liste = self.kortPaHand
-        tb = "+------+ "
-        mid = "|      | "
-        
-        tbf = tb
-        midf = "|??????| "
-        con1 = "|??????| "
-        con2 = "|??????| "
-        farge = ["Kløver","Spar","Hjerter","Ruter"]
-        fargeS = ["♣","♠","♥","♦"]
-
-        far = ""
-        space = " "
-
-        
-        for i in range(len(liste)-1):
-            tal = liste[i+1].tall
-
-            if(liste[i+1].tall == 10):
-                space = ""
-            else:
-                space = " "
-            if(liste[i+1].tall == 11):
-                tal = "J"
-            if(liste[i+1].tall == 12):
-                tal = "Q"
-            if(liste[i+1].tall == 13):
-                tal = "K"
-            if(liste[i+1].tall == 1):
-                tal = "A"
-        
-            for r in range(len(farge)):
-                if(farge[r] == liste[i+1].farge):
-                    far = fargeS[r]
-            tbf += tb
-            midf += mid
-            con1 += f"| {tal}{space} {far} | "
-            con2 += f"| {far}  {tal}{space}| "
-        print(tbf)
-        print(con1)
-        print(midf)
-        print(midf)
-        print(con2)
-        print(tbf)
-  
-
-# test for å se om koden fungerer
-
-kortstokk = Kortstokk()
-#kortstokk.visKortstokkInfo()
-
-h1 = Hand()
-
-h1.visHand()
-h1.finnSum()
