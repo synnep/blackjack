@@ -21,11 +21,6 @@ def leggTilSpillere():
         # Lagrer hvert navn som et eget Hand-objekt
         spillere.append(Hand(navn))
 
-def giHånd():
-    for i in range(len(spillere)):
-        spillere[i].genererHand()
-
-
 leggTilSpillere()
 
 sum = []
