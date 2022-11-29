@@ -279,8 +279,9 @@ while True:
                         # ellers skal dealeren trekke et nytt kort
                         else:
                             trekkKort = True
+                            spillerVar += 1
                         
-                        spillerVar += 1
+                        
                 
                 # dealer trekker nytt kort
                 if(trekkKort == True):
