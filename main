@@ -137,13 +137,17 @@ while True:
 
                 if sum == []:
                     print("Bust..")
+                    spillere[i].endeligverdi = 22
                     break
                 print(f"SUM: {sum}")
                 if sum[0] == 21:
                     print("21!")
+                    spillere[i].endeligverdi = 21
                     break
-                if sum[0] > 21:
-                    sum.pop(0)
+                else:
+                    spillere[i].endeligverdi = sum[0]
+
+
 
                 valg = input("HIT eller STAND? ").upper()
                 if valg == "HIT":
@@ -159,7 +163,7 @@ while True:
         print("hei")
     
     while True:
-     testVar = False
+        testVar = False
         
         print("Dealer:")
         dealer.visHand2()
@@ -169,11 +173,8 @@ while True:
         for r in range(len(spillere)):
             # Printen oversikt over alle sine kort
             print(f"\nSpiller {r+1}({spillere[r].navn}):")
-            tallListe = spillere[r].finnSum()
-            if(tallListe==[]):
-                print("Bust")
-            else:
-                print(tallListe[0])
+            print(f"Poeng: {spillere[r].endeligverdi}")
+                
         print(" ")
         if(testVar == False and dealer.finnSum()==[]):
             print("Du vant")
