@@ -140,35 +140,36 @@ while True:
             print(dealer.finnSum())
             print("\n")
 
-            for r in range(len(spillere)):
-                # Printen oversikt over alle sine kort
-                if spillere[r].endeligverdi > 21: 
-                    print(f"{spillere[r].navn} fikk over 21 poeng")
-                else: 
-                    print(f"Poeng: {spillere[r].endeligverdi}")
+        
+        for r in range(len(spillere)):
+            # Printen oversikt over alle sine kort
+            print(f"\nSpiller {r+1}({spillere[r].navn}):")
+            if spillere[r].endeligverdi > 21: 
+                print(f"{spillere[r].navn} : Bust")
+                print(" ")
+            else: 
+                print(f"{spillere[r].navn} : {spillere[r].endeligverdi}")
+                print(" ")
+        
+        spillereSomKanVinne = []
 
-            print(" ")
-            if(testVar == False and dealer.finnSum()==[]):
-                print("Du vant")
-                time.sleep(5)
-                break
-            if(testVar == True and dealer.finnSum()!=[]):
-                print("\n\n\n")
-                print("You Loose")
-                print("\n\n\n")
-                time.sleep(5)
-                break
-            for h in range(len(spillere)):
-                if (dealer.finnSum()[0] <= spillere[h].finnSum()[0] and spillere[h].finnSum()[0] < 22):
-                    testVar = True
-            if(testVar == True):
-                dealer.leggTilKort()
-            etl2 = 0
-            for j in range(len(dealer.finnSum())):
-                if dealer.finnSum()[j-etl2] > 21:
-                    dealer.finnSum().pop(j-etl)
-                    etl2+=1
-            time.sleep(3)
+        for s in range(len(spillere)):
+            if spillere[s].endeligverdi > 21: 
+                print(f"{spillere[s].navn} : Bust")
+                print("Du tapte spillet, og taper alt du bettet.")
+                print(f"Din nåværende sum er {spillere[s].pengesum}.")
+                print(" ")
+            elif spillere[s].endeligverdi == 21: 
+                print(f"{spillere[s].navn} : {spillere[s].endeligverdi}")
+                print("Du har vunnet!")
+                vinnesum = spillere[s].bettesum * 1.5
+                spillere[s].pengesum += vinnesum
+                print(f"Du vinner derfor {vinnesum}!")
+                print(f"Din nåværende sum er {spillere[s].pengesum}.")
+            else: 
+                spillereSomKanVinne.append(spillere[s])
+
+        break
   
     
 
