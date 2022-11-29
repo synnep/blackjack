@@ -158,49 +158,84 @@ while True:
                 elif valg == "STAND":
                     # Lagre resultatet til hver person
                     break
+        while True:
+            testVar = False
+
+            print("Dealer:")
+            dealer.visHand2()
+            print(dealer.finnSum())
+            print("\n")
+
+            for r in range(len(spillere)):
+                # Printen oversikt over alle sine kort
+                if spillere[r].endeligverdi > 21: 
+                    print(f"{spillere[r].navn} fikk over 21 poeng")
+                else: 
+                    print(f"Poeng: {spillere[r].endeligverdi}")
+
+            print(" ")
+            if(testVar == False and dealer.finnSum()==[]):
+                print("Du vant")
+                time.sleep(5)
+                break
+            if(testVar == True and dealer.finnSum()!=[]):
+                print("\n\n\n")
+                print("You Loose")
+                print("\n\n\n")
+                time.sleep(5)
+                break
+            for h in range(len(spillere)):
+                if (dealer.finnSum()[0] <= spillere[h].finnSum()[0] and spillere[h].finnSum()[0] < 22):
+                    testVar = True
+            if(testVar == True):
+                dealer.leggTilKort()
+            etl2 = 0
+            for j in range(len(dealer.finnSum())):
+                if dealer.finnSum()[j-etl2] > 21:
+                    dealer.finnSum().pop(j-etl)
+                    etl2+=1
+            time.sleep(3)
+  
+    
+
 
     elif action == "l":
-        print("hei")
-    
-    while True:
-        testVar = False
+        print("\n\n\n")
+        while True:
+            print("Skriv '+' for å legge til spillere")
+            print("Skriv '-' for å fjerne spillere")
+            print("print 'o' for å avslutte")
+            edit = input("Valg: ")
+            print("")
+
+            if edit == "+":
+                navn = input("Skriv inn navnet på den nye spilleren: ")
+
+                # Lagrer hvert navn som et eget Hand-objekt
+                spillere.append(Hand(navn))
+
+                # Viser alle spillerne med den nye spilleren:
+                print("\nNåværende spillere: ")
+                for i in range(len(spillere)):
+                    print("- ", spillere[i].navn)
+
+                print("")
+            elif edit == "-":
+                navn1 = input("Hva er navnet på spilleren du vil fjerne? ")
+                for i in range(len(spillere)):
+                    if spillere[i].navn == navn1:
+                        print(f"   #--------------------------------------------")
+                        print(
+                            f"   | Spiller '{navn1}' blir fjernet fra spillet ")
+                        print(
+                            f"   | Utbetalte penger: {spillere[i].pengesum}kr.")
+                        print(f"   #--------------------------------- Sees snart!")
+                        spillere.pop(i)
+
+            elif edit == "o":
+                break
+
         
-        print("Dealer:")
-        dealer.visHand2()
-        print(dealer.finnSum())
-        print("\n")
-        
-        for r in range(len(spillere)):
-            # Printen oversikt over alle sine kort
-            if spillere[r].endeligverdi > 21: 
-                print(f"{spillere[r].navn} fikk over 21 poeng")
-            else: 
-                print(f"Poeng: {spillere[r].endeligverdi}")
-                
-        print(" ")
-        if(testVar == False and dealer.finnSum()==[]):
-            print("Du vant")
-            time.sleep(5)
-            break
-        if(testVar == True and dealer.finnSum()!=[]):
-            print("\n\n\n")
-            print("You Loose")
-            print("\n\n\n")
-            time.sleep(5)
-            break
-        for h in range(len(spillere)):
-            if (dealer.finnSum()[0] <= spillere[h].finnSum()[0] and spillere[h].finnSum()[0] < 22):
-                testVar = True
-        if(testVar == True):
-            dealer.leggTilKort()
-        etl2 = 0
-        for j in range(len(dealer.finnSum())):
-            if dealer.finnSum()[j-etl2] > 21:
-                dealer.finnSum().pop(j-etl)
-                etl2+=1
-        time.sleep(3)
-        
-    
 
 """
 NB!
