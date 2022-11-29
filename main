@@ -78,7 +78,8 @@ while True:
         # Deretter gir vi hver spiller en hånd å spille med
         
         # bygger en kortstokk
-        kortstokk = Kortstokk()
+        kortstokk.kortstokk = []
+        kortstokk.bygg()
 
         # lager en dealer-hånd
         dealer = Dealer()
