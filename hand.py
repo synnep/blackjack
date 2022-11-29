@@ -19,6 +19,8 @@ class Hand():
         self.genererHand()
         self.navn = navn
         self.pengesum = 100
+        self.endeligverdi = 0
+        self.bettesum = 0
     
     def genererHand(self):
         """
