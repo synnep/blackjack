@@ -1,7 +1,7 @@
+# for å kunne stokke
 import random
 
 class Kort:
-      
     """
     Klasse for å generere kort
     
@@ -15,7 +15,7 @@ class Kort:
 
     def visKortInfo(self):
         """
-        Viser farge og verdien til et kort
+        Viser farge og verdien til et kort som et kort
         """
 
         #print(self.farge, self.tall)
@@ -57,7 +57,7 @@ class Kortstokk:
     
     def  __init__(self):
        self.kortstokk = []
-       self.bygg()
+       self.bygg()              # bygger automatisk kortstokken
     
     def bygg(self):
         """
@@ -92,6 +92,5 @@ class Kortstokk:
         """
         printer hele kortstokken
         """
-        #print(self.kortstokk)
         for i in self.kortstokk:
             i.visKortInfo()
