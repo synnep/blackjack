@@ -172,8 +172,10 @@ while True:
         
         for r in range(len(spillere)):
             # Printen oversikt over alle sine kort
-            print(f"\nSpiller {r+1}({spillere[r].navn}):")
-            print(f"Poeng: {spillere[r].endeligverdi}")
+            if spillere[r].endeligverdi > 21: 
+                print(f"{spillere[r].navn} fikk over 21 poeng")
+            else: 
+                print(f"Poeng: {spillere[r].endeligverdi}")
                 
         print(" ")
         if(testVar == False and dealer.finnSum()==[]):
