@@ -1,18 +1,27 @@
-# -*- coding: utf-8 -*-
-from kortstokk import Kort
-from kortstokk import Kortstokk
+# importerer fargebibliotek og kortstokklasser
+from colorama import Fore, Back, Style
+from kortstokk import *
 
 class Hand():
     """
-    Klasse for å representere en hånd med kort
-
+    Klasse for å representere en spiller med kort på hånden
     Bruker en ferdig stokket kortstokk for å fylle hånden med kort
         
+        parametre: 
+            navn (str): spillerens navn
+            kortPaHand (list): kortene spilleren har på hånden
+            pengesum (int): pengene spilleren sitter på, 100
+            endeligverdi (int): den beste kominasjonen av kortene spilleren har
+            bettesum (int): hvor mye personen better i spillet
     """
     
-    def __init__(self):
+    def __init__(self, navn):
         self.kortPaHand = []
         self.genererHand()
+        self.navn = navn
+        self.pengesum = 100
+        self.endeligverdi = 0
+        self.bettesum = 0
     
     def genererHand(self):
         """
@@ -24,13 +33,14 @@ class Hand():
     
     def visHand(self):
         """
-        viser kortene hånden sitter på
+        viser kortene hånden sitter på en ikke-fancy måte
         """
         for k in self.kortPaHand:
             k.visKortInfo()
+
     def visHand2(self):
         """
-        Viser hånden til spilleren horisontalt
+        Viser hånden til spilleren horisontalt på en fancy måte
         """
         liste = self.kortPaHand
         tb = "+------+ "
@@ -41,7 +51,7 @@ class Hand():
         con1 = ""
         con2 = ""
         farge = ["Kløver","Spar","Hjerter","Ruter"]
-        fargeS = ["♣","♠","♥","♦"]
+        fargeS = ["♣","♠",Fore.RED+"♥"+Style.RESET_ALL,Fore.RED+"♦"+Style.RESET_ALL]
 
         far = ""
         space = " "
@@ -76,16 +86,12 @@ class Hand():
         print(midf)
         print(con2)
         print(tbf)
+
     def finnSum(self):
         """
         finner summen til kortene hånden besitter
         tar hensyn til at ess kan ha flere verdier
-        returnerer liste med verdier
-        """
-        """
-        finner summen til kortene hånden besitter
-        tar hensyn til at ess kan ha flere verdier
-        returnerer liste med verdier
+        returnerer liste med alle mulige verdier
         """
         ess = 0
         summer = []    # liste for summene vi skal returnere
@@ -141,20 +147,27 @@ class Hand():
         # returnerer liste med summer
         return summer
             
-  def leggTilKort(self):
+    def leggTilKort(self):
         """
         legger til det første kortet i bunken til hånden
         og fjerner kortet fra kortstokken
         """
         self.kortPaHand.append(kortstokk.trekk())
+
 class Dealer(Hand):
     """
     Klasse for dealeren sin hånd
+        Arver metodene og noen egenskaper fra Hand-klassen
     """
     def __init__(self):
-        super().__init__()
+        self.kortPaHand = []
+        self.genererHand()   
     
     def visHandDealer(self):
+        """
+        Viser hånden til dealeren horisontalt på en fancy måte
+        Tar hensyn til at det første kortet er skjult
+        """
         liste = self.kortPaHand
         tb = "+------+ "
         mid = "|      | "
@@ -201,12 +214,6 @@ class Dealer(Hand):
         print(tbf)
   
 
-# test for å se om koden fungerer
-
+# test for å se om koden fungerer, unngå feilkode
 kortstokk = Kortstokk()
 #kortstokk.visKortstokkInfo()
-
-h1 = Hand()
-
-h1.visHand()
-h1.finnSum()
