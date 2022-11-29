@@ -18,6 +18,8 @@ print("                                            |__/                      ")
 
 # Definerer en global variabel
 spillere = []
+sum = []
+dealer = Dealer()
 
 
 # Definerer noen funksjoner for brukervennlighet og funksjonalitet
@@ -32,10 +34,10 @@ def leggTilSpillere():
         # Lagrer hvert navn som et eget Hand-objekt
         spillere.append(Hand(navn))
 
+# Kjører funksjonen over
 leggTilSpillere()
 
-sum = []
-dealer = Dealer()
+# Kjører hovedprogrammet
 while True:
     # Valg av hva du vil gjøre
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
