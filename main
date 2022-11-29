@@ -83,9 +83,6 @@ while True:
         # lager en dealer-hånd
         dealer = Dealer()
 
-        """ 
-        Alt dette er unødvendig kode
-            gjøres automatisk idet vi oppretter objektene
 
         dealer.kortPaHand = []
         dealer.genererHand()
@@ -94,7 +91,7 @@ while True:
             spillere[i].kortPaHand = []
             print(spillere[i].genererHand())
             # Legg til greier fra Synne og Trygve sine nye koder (så de kan se kortene de får osv..)
-        """
+
 
 
         for i in range(len(spillere)):
