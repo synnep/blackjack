@@ -1,49 +1,34 @@
 # Importerer klasser fra andre lokale filer:
-from hånd_spiller_dealer import *
-from kort_og_kortstokk import *
+from hand import *
+from kortstokk import *
 import time
 
-# Definerer en global variabel
+
+# LOGO - Blackjack the card game
+print("                                                                      ")
+print("                  _     _            _         _            _       _ ")
+print("+------+         | |   | |          | |       (_)          | |     | |")
+print("| A   +'-----+   | |__ | | __ _  ___| | __     _  __ _  ___| | __  | |")
+print("|     | J  ♠ |   | '_ \| |/ _` |/ __| |/ /    | |/ _` |/ __| |/ /  |_|")
+print("| ♣   |      |   | |_) | | (_| | (__|   <     | | (_| | (__|   <    _ ")
+print("+-----| ♠  J |   |_.__/|_|\__,_|\___|_|\_\    | |\__,_|\___|_|\_\  |_|")
+print("      +------+                               _/ |                     ")
+print("                                            |__/                      ")
+
+
+# Definerer en global variabel, spillerne som er med i spillet
 spillere = []
+#sum = []
 
-"""
-class Spiller(Hand):
-    
-Klasse som skal lage spiller-objekter.
+# oppretter en dealer
+dealer = Dealer()
 
-Arver fra hand-objektet
-
-
-    def __init__(self, navn):
-        super().__init__()
-        self.navn = navn
-        self.pengesum = 2000
-        self.bet = 0
-
-    def genererHand(self):
-        super().genererHand()
-
-    def visHand(self):
-        super().visHand()
-        print(f"Navn: {self.navn}")
-        print(f"Pengesum: {self.pengesum}kr")
-        print(f"Satt veddesum: {self.bet}kr")
-
-    def visHand2(self):
-        super().visHand2()
-
-    def finnSum(self):
-        super().finnSum()
-
-    def leggTilKort(self):
-        super().leggTilKort()
-"""
 
 # Definerer noen funksjoner for brukervennlighet og funksjonalitet
-
-
 def leggTilSpillere():
-    print("Hei")
+    """
+    Funksjon som oppretter spiller-objekter ut fra Hand-klassen
+    """
     antall = int(input("Hvor mange spillere ønsker du å legge til?: "))
 
     for i in range(antall):
@@ -53,15 +38,10 @@ def leggTilSpillere():
         # Lagrer hvert navn som et eget Hand-objekt
         spillere.append(Hand(navn))
 
-
-def giHånd():
-    for i in range(len(spillere)):
-        spillere[i].genererHand()
-
-
+# Kjører funksjonen over
 leggTilSpillere()
 
-sum = []
+# Kjører hovedprogrammet
 while True:
     # Valg av hva du vil gjøre
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
@@ -72,36 +52,65 @@ while True:
 
     action = input("\nSkriv inn hvilke handling du vil gjøre: ")
 
+
+    # starter runden
     if action == "s":
 
         # Først lar vi spillerne velge hvor mye de vil vedde
+
         for i in range(len(spillere)):
+
             print(f"\n\nSPILLER: {spillere[i].navn}")
+
             while True:
                 bet = int(input(f"Vennligst velg hvor mye du vil satse: "))
+
                 if bet <= 0:
                     print("Du kan ikke vedde ingenting!")
                 elif bet > spillere[i].pengesum:
-                    print(
-                        f"Du kan ikke vedde mer enn du har av penger! (pengesum = {spillere[i].pengesum}kr)")
+                    print(f"Du kan ikke vedde mer enn du har av penger! (pengesum = {spillere[i].pengesum}kr)")
                 else:
+                    # fjerner bet fra "penger i banken" og lagrer bettesum
+                    spillere[i].pengesum -= bet
+                    spillere[i].bettesum = bet
                     break
 
-            spillere[i].bet = bet
-
         # Deretter gir vi hver spiller en hånd å spille med
+        
+        # bygger en kortstokk
+        kortstokk = Kortstokk()
+
+        # lager en dealer-hånd
+        dealer = Dealer()
+
+        """ 
+        Alt dette er unødvendig kode
+            gjøres automatisk idet vi oppretter objektene
+
+        dealer.kortPaHand = []
+        dealer.genererHand()
+        
         for i in range(len(spillere)):
             spillere[i].kortPaHand = []
             print(spillere[i].genererHand())
             # Legg til greier fra Synne og Trygve sine nye koder (så de kan se kortene de får osv..)
+        """
+
 
         for i in range(len(spillere)):
+            # printer spillet
             print("\n\n\n")
             print("- - - - - - - - - - - - - - - - - - - - -")
             print("\t\tBLACKJACK")
             print("- - - - - - - - - - - - - - - - - - - - -")
+
+            # printer dealerhånd
+            print("Dealer:")
+            dealer.visHandDealer()
+            print("\n")
+
+            # printer alle spillernes fort
             for r in range(len(spillere)):
-                # Printen oversikt over alle sine kort
                 print(f"\nSpiller {r+1}({spillere[r].navn}):")
                 spillere[r].visHand2()
                 print(" ")
@@ -109,51 +118,266 @@ while True:
             # Space:
             print("\n\n")
 
+            # for å stoppe programmet i 3 sek
             time.sleep(3)
 
+            # oversikt
             print("- - - - - - - - -")
             print("Oversikt       ⮝")
             print("Spillrunde     ⮟")
             print("- - - - - - - - -")
             print("\n\n")
 
-            # Lar spiller i ta en omgang (hit / stand / bust)
+            # Lar spiller i ta en omgang (hit / stand)
             while True:
-                # Se kort, se sum
+                # viser kortene til spilleren som er i spill
                 print(f"Spiller {i+1}: {spillere[i].navn}")
                 spillere[i].visHand2()
 
+                # liste med alle mulige summer
                 sum = spillere[i].finnSum()
-                print(f"SUM: {sum}")
-
+                
+                # variabel og løkke for å fjerne summer over 21
+                # som ville ført til automatisk bust
                 etl = 0
-
                 for g in range(len(sum)):
-                    if sum[g] > 21:
-                        sum.pop(g)
-                        etl += 1
+                    if sum[g-etl] > 21:
+                        sum.pop(g-etl)
+                        etl+=1
 
+                # hvis ingen summer under 22, automatisk bust, løkka brytes
                 if sum == []:
                     print("Bust..")
+                    spillere[i].endeligverdi = 22     # for å lettere 'luke' ut spilleren senere
+                    time.sleep(2)
                     break
 
-                if sum[0+etl] == 21:
+                # printer sum-liste
+                print(f"SUM: {sum}")
+
+                # siden listen er sortert fungerer dette :)
+                # bryter løkka, ikke mulig å hitte
+                if sum[0] == 21:
                     print("21!")
+                    spillere[i].endeligverdi = 21
+                    time.sleep(2)
                     break
+                else:
+                    # for å finne den best mulige summen for spilleren
+                    spillere[i].endeligverdi = sum[0]
 
+
+                # gir valget til spilleren
                 valg = input("HIT eller STAND? ").upper()
-                if valg == "HIT":
 
+                if valg == "HIT":
+                    # legger til kort
                     spillere[i].leggTilKort()
+
                     # print(spillere[i].kortPaHand)
 
                 elif valg == "STAND":
-                    # Lagre resultatet til hver person
+                    # bryter løkka, best mulige verdi for spilleren er alledere lagret i en variabel
                     break
+            # går så videre til neste spiller for å gjøre akkurat det samme
 
+        # når hele runden er ferdig
+        for r in range(len(spillere)):
+
+            # Printen oversikt over alle sine kort
+            print(f"\nSpiller {r+1}({spillere[r].navn}):")
+
+            if spillere[r].endeligverdi > 21: 
+                # hvis spilleren har bustet, printes dette
+                print(f"{spillere[r].navn} : Bust")
+                print(" ")
+            else: 
+                # spillerens best mulige verdi printes
+                print(f"{spillere[r].navn} : {spillere[r].endeligverdi}")
+                print(" ")
+        
+        time.sleep(2)
+        
+        # variabel for spillere har under 21 poeng, og må spille mot dealeren
+        spillereSomKanVinne = []
+
+        # printer resultatene med spillerne vi vet resultatene til
+        for s in range(len(spillere)):
+
+            # spillerne som har bustet
+            if spillere[s].endeligverdi > 21: 
+                print(f"{spillere[s].navn} : Bust")
+                print("Du tapte spillet, og taper alt du bettet.")
+                print(f"Din nåværende sum er {spillere[s].pengesum}.")
+                print(" ")
+                time.sleep(3)
+
+            # spillere som automatisk har vunnet, summen = 21
+            elif spillere[s].endeligverdi == 21: 
+                print(f"{spillere[s].navn} : {spillere[s].endeligverdi}")
+                print("Du har vunnet!")
+                vinnesum = spillere[s].bettesum * 1.5
+                spillere[s].pengesum += vinnesum
+                print(f"Du vinner derfor {vinnesum}!")
+                print(f"Din nåværende sum er {spillere[s].pengesum}.")
+                time.sleep(3)
+
+            # de som må spille mot dealer legges til i liste for videre kode
+            else: 
+                spillereSomKanVinne.append(spillere[s])
+
+        # hvis det er noen som må spille mot dealeren
+        if(spillereSomKanVinne != []):
+
+            while True:
+                
+                # viser hele hånden til dealer
+                print("Dealer:")
+                dealer.visHand2()
+
+                time.sleep(2)
+
+                dealerSum = dealer.finnSum()
+
+                """
+                Tror dette blir gjort i dealer-klassen??
+            
+                dealerSum.sort()
+                dealerSum.reverse()
+                """
+
+                # variabel og løkke for å fjerne verdier over 21
+                essVar = 0
+                for u in range(len(dealerSum)):
+                    if(dealerSum[u-essVar] > 21):
+                        dealerSum.pop(u-essVar)
+                        essVar +=1
+                
+                # printer dealer sin(e) sum(mer)
+                print(dealerSum)
+                print("\n")
+    
+                # variabel for om dealeren må trekke kort
+                trekkKort = False
+
+                # variabel som trengs hvis fjerner spiller som kan vinne
+                spillerVar = 0
+
+                # sjekker om dealer vinner over spillere
+                for w in range(len(spillereSomKanVinne)):
+
+                    if(dealerSum != []):
+                        # hvis spilleren har lavere sum enn dealeren
+                        if(spillereSomKanVinne[spillerVar].endeligverdi < dealerSum[0]):
+                            print(f"{spillereSomKanVinne[spillerVar].navn} har tapt for dealeren.")
+                            print(f"{spillereSomKanVinne[spillerVar].navn} har derfor mistet bettingsummen,")
+                            print(f"og har {spillereSomKanVinne[spillerVar].pengesum} igjen.")
+                            print("\n\n")
+
+                            # fjerner spilleren som ikke lenger har mulighet til å vinne
+                            spillereSomKanVinne.pop(spillerVar)
+
+                            time.sleep(4)
+                        
+                        # ellers skal dealeren trekke et nytt kort
+                        else:
+                            trekkKort = True
+                        
+                        spillerVar += 1
+                
+                # dealer trekker nytt kort
+                if(trekkKort == True):
+                    dealer.leggTilKort()
+                
+                # dealer har slått alle spillerne, og alle spillerne taper
+                elif(trekkKort == False and dealerSum != []):
+        
+                    print("Runden er ferdig.")
+                    print("Dealeren vant over alle spillerne")
+
+                    time.sleep(4)
+
+                    break
+                
+                # dealer har bustet, alle spillerne som er igjen vinner
+                elif(trekkKort == False and dealerSum == []):
+
+                    print("Dealer bustet og tapte.")
+                    print("\n\n")
+
+                    time.sleep(2)
+
+                    # printer resultatene for spillerne som har vunnet
+                    for v in range(len(spillereSomKanVinne)):
+                        print(f"{spillereSomKanVinne[v].navn} har vunnet!")
+                        vinnesum = spillere[v].bettesum * 2
+                        spillere[v].pengesum += vinnesum
+                        print(f"Du vinner derfor {vinnesum}!")
+                        print(f"Din nåværende sum er {spillere[v].pengesum}.")
+
+                        time.sleep(1)
+                    
+                    break
+      
+        
+
+    # gjøre endringer i spillet
     elif action == "l":
-        print("hei")
+        print("\n\n\n")
 
+
+        while True:
+            print("Skriv '+' for å legge til spillere")
+            print("Skriv '-' for å fjerne spillere")
+            print("print 'o' for å avslutte, går tilbake til spillet")
+
+            # ber om input
+            edit = input("Valg: ")
+            print("")
+
+            # legger til en spiller
+            if edit == "+":
+                navn = input("Skriv inn navnet på den nye spilleren: ")
+
+                # Lagrer hvert navn som et eget Hand-objekt
+                spillere.append(Hand(navn))
+
+                # Viser navnene til alle spillerne med den nye spilleren:
+                print("\nNåværende spillere: ")
+                for i in range(len(spillere)):
+                    print("- ", spillere[i].navn)
+
+                print("")
+            
+            # fjerner en spiller
+            elif edit == "-":
+                navn1 = input("Hva er navnet på spilleren du vil fjerne? ")
+
+                # går gjennom lista med s
+                # spillere og fjerner spilleren
+
+                # OBS! får en feilmelding når et navn fjernes
+                # løsning: legge til en 'hjelpevariabel'?
+                for i in range(len(spillere)):
+                    if spillere[i].navn == navn1:
+                        print(f"   #--------------------------------------------")
+                        print(
+                            f"   | Spiller '{navn1}' blir fjernet fra spillet ")
+                        print(
+                            f"   | Utbetalte penger: {spillere[i].pengesum}kr.")
+                        print(f"   #--------------------------------- Sees snart!")
+                        spillere.pop(i)
+                    # legge til else her, hvis navnet ikke finnes
+
+            # går tilbake til spillet
+            elif edit == "o":
+                break
+
+            # legge til else her!! feilmelding hvis skriver noe annet
+    else:
+        print("Du må skrive inn 's' eller 'l'. ")
+
+        
 
 """
 NB!
