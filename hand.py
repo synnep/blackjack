@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from kort_og_kortstokk import *
+from colorama import Fore, Back, Style
 """
 from kortstokk import Kort
 from kortstokk import Kortstokk
@@ -46,7 +47,7 @@ class Hand():
         con1 = ""
         con2 = ""
         farge = ["Kløver","Spar","Hjerter","Ruter"]
-        fargeS = ["♣","♠","♥","♦"]
+        fargeS = ["♣","♠",Fore.RED+"♥"+Style.RESET_ALL,Fore.RED+"♦"+Style.RESET_ALL]
 
         far = ""
         space = " "
