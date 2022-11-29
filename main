@@ -159,7 +159,7 @@ while True:
         print("hei")
     
     while True:
-        testVar = False
+     testVar = False
         
         print("Dealer:")
         dealer.visHand2()
@@ -170,23 +170,32 @@ while True:
             # Printen oversikt over alle sine kort
             print(f"\nSpiller {r+1}({spillere[r].navn}):")
             tallListe = spillere[r].finnSum()
-            if(tallListe[0]>21):
+            if(tallListe==[]):
                 print("Bust")
             else:
                 print(tallListe[0])
         print(" ")
+        if(testVar == False and dealer.finnSum()==[]):
+            print("Du vant")
+            time.sleep(5)
+            break
+        if(testVar == True and dealer.finnSum()!=[]):
+            print("\n\n\n")
+            print("You Loose")
+            print("\n\n\n")
+            time.sleep(5)
+            break
         for h in range(len(spillere)):
             if (dealer.finnSum()[0] <= spillere[h].finnSum()[0] and spillere[h].finnSum()[0] < 22):
                 testVar = True
         if(testVar == True):
             dealer.leggTilKort()
-        else:
-            break
-        print("\n\n\n")
-        print("You Loose")
-        print("\n\n\n")
-        
-        time.sleep(5)
+        etl2 = 0
+        for j in range(len(dealer.finnSum())):
+            if dealer.finnSum()[j-etl2] > 21:
+                dealer.finnSum().pop(j-etl)
+                etl2+=1
+        time.sleep(3)
         
     
 
