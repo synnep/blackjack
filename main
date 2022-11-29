@@ -3,13 +3,24 @@ from hånd_spiller_dealer import *
 from kort_og_kortstokk import *
 import time
 
+
+# LOGO - Blackjack the card game
+print("                                                                      ")
+print("                  _     _            _         _            _       _ ")
+print("+------+         | |   | |          | |       (_)          | |     | |")
+print("| A   +'-----+   | |__ | | __ _  ___| | __     _  __ _  ___| | __  | |")
+print("|     | J  ♠ |   | '_ \| |/ _` |/ __| |/ /    | |/ _` |/ __| |/ /  |_|")
+print("| ♣   |      |   | |_) | | (_| | (__|   <     | | (_| | (__|   <    _ ")
+print("+-----| ♠  J |   |_.__/|_|\__,_|\___|_|\_\    | |\__,_|\___|_|\_\  |_|")
+print("      +------+                               _/ |                     ")
+print("                                            |__/                      ")
+
+
 # Definerer en global variabel
 spillere = []
 
 
 # Definerer noen funksjoner for brukervennlighet og funksjonalitet
-
-
 def leggTilSpillere():
     print("Hei")
     antall = int(input("Hvor mange spillere ønsker du å legge til?: "))
