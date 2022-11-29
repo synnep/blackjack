@@ -52,15 +52,17 @@ while True:
         # Først lar vi spillerne velge hvor mye de vil vedde
         for i in range(len(spillere)):
             print(f"\n\nSPILLER: {spillere[i].navn}")
-            while True:
+             while True:
                 bet = int(input(f"Vennligst velg hvor mye du vil satse: "))
                 if bet <= 0:
                     print("Du kan ikke vedde ingenting!")
                 elif bet > spillere[i].pengesum:
-                    print(
-                        f"Du kan ikke vedde mer enn du har av penger! (pengesum = {spillere[i].pengesum}kr)")
+                    print(f"Du kan ikke vedde mer enn du har av penger! (pengesum = {spillere[i].pengesum}kr)")
                 else:
+                    spillere[i].pengesum -= bet
+                    spillere[i].bettesum = bet
                     break
+
 
             spillere[i].bet = bet
 
