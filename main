@@ -112,11 +112,13 @@ while True:
                 if sum == []:
                     print("Bust..")
                     spillere[i].endeligverdi = 22
+                    time.sleep(1)
                     break
                 print(f"SUM: {sum}")
                 if sum[0] == 21:
                     print("21!")
                     spillere[i].endeligverdi = 21
+                    time.sleep(1)
                     break
                 else:
                     spillere[i].endeligverdi = sum[0]
