@@ -446,6 +446,8 @@ while True:
 
         # Sjekker ut resten av spillerne
         print("Resterende spillere blir fjernet og får utbetalt.\n")
+        time.sleep(0.25)
+        
         for i in range(len(spillere)):
             print(
                 f" - Spiller {spillere[i].navn} blir utbetalt {spillere[i].pengesum}kr!")
@@ -460,6 +462,8 @@ while True:
                     f"      > Dette er {forskjell}kr mer enn startsummen. \033[Gratulerer!D\033[0m\n\n")
             elif forskjell == 0:
                 print("     > Dette er like mye som vi startet med!\n\n")
+            
+            time.sleep(0.5)
 
         print("\033[1mSees snart igjen! >:D\033[0m\n")
         break
