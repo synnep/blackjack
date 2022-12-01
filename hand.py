@@ -177,7 +177,8 @@ class Dealer(Hand):
         con1 = "|??????| "
         con2 = "|??????| "
         farge = ["Kløver","Spar","Hjerter","Ruter"]
-        fargeS = ["♣","♠","♥","♦"]
+        fargeS = ["♣","♠",Fore.RED+"♥"+Style.RESET_ALL,Fore.RED+"♦"+Style.RESET_ALL]
+
 
         far = ""
         space = " "
