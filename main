@@ -86,17 +86,20 @@ while True:
             print(f"\n\nSPILLER: {spillere[i].navn}")
 
             while True:
-                bet = int(input(f"Vennligst velg hvor mye du vil satse: "))
+                try:
+                    bet = abs(float(input(f"Vennligst velg hvor mye du vil satse: ")))
 
-                if bet <= 0:
-                    print("Du kan ikke vedde ingenting!")
-                elif bet > spillere[i].pengesum:
-                    print(f"Du kan ikke vedde mer enn du har av penger! (pengesum = {spillere[i].pengesum}kr)")
-                else:
-                    # fjerner bet fra "penger i banken" og lagrer bettesum
-                    spillere[i].pengesum -= bet
-                    spillere[i].bettesum = bet
-                    break
+                    if bet <= 0:
+                        print("Du kan ikke vedde ingenting!")
+                    elif bet > spillere[i].pengesum:
+                        print(f"Du kan ikke vedde mer enn du har av penger! (pengesum = {spillere[i].pengesum}kr)")
+                    else:
+                        # fjerner bet fra "penger i banken" og lagrer bettesum
+                        spillere[i].pengesum -= bet
+                        spillere[i].bettesum = bet
+                        break
+                except ValueError:
+                    print("Du må skrive inn et tall")
 
         # Deretter gir vi hver spiller en hånd å spille med
         
