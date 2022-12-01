@@ -56,8 +56,31 @@ while True:
     # starter runden
     if action == "s":
 
-        # Først lar vi spillerne velge hvor mye de vil vedde
+        # Først sjekker vi om noen spillere fra en tidligere runde har 0 kroner igjen. De blir da fjernet fra spillet.
+        # Vi lage en variabel som sjekker hvor mange spillere som ikke har igjen mer penger fra siste omgang
+        fjernedeSpillere = 0
 
+        # Vi går igjennom alle spillerne og sjekker om de har pengesummen 0 kr
+        for r in range(len(spillere)):
+            if spillere[r].pengesum == 0:
+                # isåfall blir antallet spillere som kan fjernes 1 mer.
+                fjernedeSpillere += 1
+
+        # Om noen spillere kan fjernes:
+        if fjernedeSpillere > 0:
+            if fjernedeSpillere == 1:  # Om bare 1 skal fjernes:
+                print("Forrige runde ble spiller:")
+            elif fjernedeSpillere > 1:  # Om flere enn 1 skal fjernes
+                print("Forrige runde ble spillerne:")
+                
+            for i in range(len(spillere)):
+                # De som har 0 kr blir poppa fra spillere-lista osv..
+                if spillere[r].pengesum == 0:
+                    print(f"- {spillere[r].navn} fjernet fra spillet.")
+                    spillere.pop(r)
+
+
+        # Deretter lar vi de resterende spillerne velge hvor mye de vil vedde
         for i in range(len(spillere)):
 
             print(f"\n\nSPILLER: {spillere[i].navn}")
