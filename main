@@ -38,12 +38,15 @@ def leggTilSpillere():
                 while True:
                     navn = input(f"Navnet til spiller {i+1}: ")
 
-                    # Sjekker om første bokstav i navnet er et mellomrom.. Dette tenker vi er fint å gjøre for hvordan navnene kan bli
-                    if navn[0] == " ":
-                        print("Navnet kan ikke starte med et mellomrom!")
+                    if navn == "":
+                        print("Du må skrive inn et navn!")
 
-                    else:
-                        break
+                    # Sjekker om første bokstav i navnet er et mellomrom.. Dette tenker vi er fint å gjøre for hvordan navnene kan bli
+                    elif navn != "":
+                        if navn[0] == " ":
+                            print("Navnet kan ikke starte med et mellomrom!")
+                        else:
+                            break
 
                 # Lagrer hvert navn som et eget Hand-objekt
                 spillere.append(Hand(navn))
