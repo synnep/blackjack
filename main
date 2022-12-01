@@ -29,14 +29,33 @@ def leggTilSpillere():
     """
     Funksjon som oppretter spiller-objekter ut fra Hand-klassen
     """
-    antall = abs(int(input("Hvor mange spillere ønsker du å legge til?: ")))
+    while True:
+        try:
+            antall = int(input("Hvor mange spillere ønsker du å legge til?: "))
 
-    for i in range(antall):
-        # Burde ha et navn til spilleren som da må lagres i hånd
-        navn = input(f"Navnet til spiller {i+1}: ")
+            for i in range(antall):
+                # Vi lager et navn som lagres i hånd-objektet vi lager!
+                while True:
+                    navn = input(f"Navnet til spiller {i+1}: ")
 
-        # Lagrer hvert navn som et eget Hand-objekt
-        spillere.append(Hand(navn))
+                    # Sjekker om første bokstav i navnet er et mellomrom.. Dette tenker vi er fint å gjøre for hvordan navnene kan bli
+                    if navn[0] == " ":
+                        print("Navnet kan ikke starte med et mellomrom!")
+
+                    else:
+                        break
+
+                # Lagrer hvert navn som et eget Hand-objekt
+                spillere.append(Hand(navn))
+
+            break
+
+        except ValueError:
+            print(
+                "\n\x1B[3mFor anntall spillere\x1B[0m : \033[1mDu må skrive inn et tall! \033[0m\n")
+            time.sleep(1)
+
+
 
 # Kjører funksjonen over
 leggTilSpillere()
