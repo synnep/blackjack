@@ -422,7 +422,7 @@ while True:
                         spillere.pop(i)
                         spillerFinnes = True
                         break
-                    # legge til else her, hvis navnet ikke finnes
+                    # legge til if her, hvis navnet ikke finnes
                 if(spillerFinnes == False):
                     print(f"Spilleren du vil fjerne, '{navn1}', finnes ikke i spillet")
                     print("Spillerne som finnes er:")
@@ -432,7 +432,7 @@ while True:
             elif edit == "o":
                 break
 
-            # legge til else her!! feilmelding hvis skriver noe annet
+        
     else:
         print("Du må skrive inn 's' eller 'l'. ")
 
