@@ -31,7 +31,15 @@ def leggTilSpillere():
     """
     while True:
         try:
-            antall = int(input("Hvor mange spillere ønsker du å legge til?: "))
+            while True:
+                antall = abs(
+                    int(input("Hvor mange spillere ønsker du å legge til?: ")))
+
+                if antall > 5:
+                    print("Antall spillere kan maksimalt være 5!\n")
+
+                else:
+                    break
 
             for i in range(antall):
                 # Vi lager et navn som lagres i hånd-objektet vi lager!
