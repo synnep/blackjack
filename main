@@ -308,11 +308,19 @@ while True:
 
                     # printer resultatene for spillerne som har vunnet
                     for v in range(len(spillereSomKanVinne)):
+                        """
+                        print(v)
+                        print(spillereSomKanVinne[v].navn)
+                        print(spillereSomKanVinne[v].bettesum)
+                        print(spillereSomKanVinne[v].pengesum)
+                        """
+
                         print(f"{spillereSomKanVinne[v].navn} har vunnet!")
-                        vinnesum = spillere[v].bettesum * 2
-                        spillere[v].pengesum += vinnesum
+                        vinnesum = abs(float(spillereSomKanVinne[v].bettesum) * 2)
+                        spillereSomKanVinne[v].pengesum += vinnesum
                         print(f"Du vinner derfor {vinnesum}!")
-                        print(f"Din nåværende sum er {spillere[v].pengesum}.")
+                        print(f"Din nåværende sum er {spillereSomKanVinne[v].pengesum}.")
+                        print("\n")
 
                         time.sleep(1)
                     
