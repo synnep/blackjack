@@ -431,10 +431,45 @@ while True:
             # går tilbake til spillet
             elif edit == "o":
                 break
+                
+    elif action == "a":
+        # Lager ASCII tekst
+        print("\n\n\n\n\n\n\n\n\n\n\n ________                           _                                                     ")
+        print("    /            /      /         /'  `                               ,   /   /           ")
+        print("---/-------__---/-__---/-__-----_/__-----__---)__-------__------__-------/---/----__--_/_-")
+        print("  /      /   ) /(     /(        /      /   ) /   )     (_ `   /   ) /   /   /   /___) /   ")
+        print(
+            "_/______(___(_/___\__/___\_____/______(___/_/_________(__)___/___/_/___/___/___(___ _(_ _")
+        print("                                                            /                             ")
+
+        time.sleep(2)
+
+        # Sjekker ut resten av spillerne
+        print("Resterende spillere blir fjernet og får utbetalt.\n")
+        for i in range(len(spillere)):
+            print(
+                f" - Spiller {spillere[i].navn} blir utbetalt {spillere[i].pengesum}kr!")
+
+            # Sjekker og printer ut en tilbakemelding om hvor mye penger personen tjente eller mistet.
+            forskjell = spillere[i].pengesum - 100
+            if forskjell < 0:
+                print(
+                    f"      > Dette er {abs(forskjell)}kr mindre enn startsummen. \033[1mBedre lykke neste gang!\033[0m\n\n")
+            elif forskjell > 0:
+                print(
+                    f"      > Dette er {forskjell}kr mer enn startsummen. \033[Gratulerer!D\033[0m\n\n")
+            elif forskjell == 0:
+                print("     > Dette er like mye som vi startet med!\n\n")
+
+        print("\033[1mSees snart igjen! >:D\033[0m\n")
+        break
+
+    else:
+        print("Du må skrive inn 's', 'l' eller 'a'. ")
 
         
     else:
-        print("Du må skrive inn 's' eller 'l'. ")
+        print("Du må skrive inn 's', 'l', eller 'a'. ")
 
         
 
