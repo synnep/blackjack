@@ -29,7 +29,7 @@ def leggTilSpillere():
     """
     Funksjon som oppretter spiller-objekter ut fra Hand-klassen
     """
-    antall = int(input("Hvor mange spillere ønsker du å legge til?: "))
+    antall = abs(int(input("Hvor mange spillere ønsker du å legge til?: ")))
 
     for i in range(antall):
         # Burde ha et navn til spilleren som da må lagres i hånd
