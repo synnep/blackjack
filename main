@@ -391,6 +391,7 @@ while True:
 
                 # OBS! får en feilmelding når et navn fjernes
                 # løsning: legge til en 'hjelpevariabel'?
+                spillerFinnes = False
                 for i in range(len(spillere)):
                     if spillere[i].navn == navn1:
                         print(f"   #--------------------------------------------")
@@ -400,8 +401,14 @@ while True:
                             f"   | Utbetalte penger: {spillere[i].pengesum}kr.")
                         print(f"   #--------------------------------- Sees snart!")
                         spillere.pop(i)
+                        spillerFinnes = True
+                        break
                     # legge til else her, hvis navnet ikke finnes
-
+                if(spillerFinnes == False):
+                    print(f"Spilleren du vil fjerne, '{navn1}', finnes ikke i spillet")
+                    print("Spillerne som finnes er:")
+                    for i in range(len(spillere)):
+                        print("- ", spillere[i].navn)
             # går tilbake til spillet
             elif edit == "o":
                 break
